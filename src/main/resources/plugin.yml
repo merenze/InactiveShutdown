@@ -1,0 +1,7 @@
+name: InactiveShutdown
+version: 1.0.0
+main: com.jellyrekt.inactiveshutdown.InactiveShutdown
+description: Automatically shut down your server after a specified period of inactivity.
+author: JellyRekt
+website: https://github.com/merenze/InactiveShutdown
+api-version: '1.20'
