@@ -2,6 +2,7 @@ package com.jellyrekt.inactiveshutdown;
 
 import com.jellyrekt.commandtree.CommandTree;
 import com.jellyrekt.inactiveshutdown.commands.*;
+import com.jellyrekt.inactiveshutdown.events.ActivityListener;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class InactiveShutdown extends JavaPlugin {
@@ -9,7 +10,7 @@ public class InactiveShutdown extends JavaPlugin {
     public void onEnable() {
         getLogger().info("Hello, World!");
         registerCommands();
-
+        getServer().getPluginManager().registerEvents(new ActivityListener(this), this);
     }
 
     private void registerCommands() {
