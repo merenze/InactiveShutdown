@@ -7,21 +7,21 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.Map;
 
-public class EnableCommand implements CommandExecutor {
+public class DisableCommand implements CommandExecutor {
     public static final String NAME = BaseCommand.NAME + " enable";
 
     private final JavaPlugin plugin;
 
-    public EnableCommand(JavaPlugin plugin) {
+    public DisableCommand(JavaPlugin plugin) {
         this.plugin = plugin;
     }
 
     @Override
     public void execute(CommandSender sender, Map<String, String[]> map) {
-        if (!plugin.getConfig().getBoolean("enabled")) {
-            plugin.getConfig().set("enabled", true);
+        if (plugin.getConfig().getBoolean("enabled")) {
+            plugin.getConfig().set("enabled", false);
             plugin.saveConfig();
         }
-        sender.sendMessage(String.format("Server will time out after %s inactivity.", InactiveShutdown.formatTime(plugin.getConfig().getInt("delay"))));
+        sender.sendMessage("Inactivity timeout disabled.");
     }
 }

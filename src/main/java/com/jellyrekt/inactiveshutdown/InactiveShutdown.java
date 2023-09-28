@@ -1,10 +1,7 @@
 package com.jellyrekt.inactiveshutdown;
 
 import com.jellyrekt.commandtree.CommandTree;
-import com.jellyrekt.inactiveshutdown.commands.BaseCommand;
-import com.jellyrekt.inactiveshutdown.commands.EnableCommand;
-import com.jellyrekt.inactiveshutdown.commands.HelpCommand;
-import com.jellyrekt.inactiveshutdown.commands.StatusCommand;
+import com.jellyrekt.inactiveshutdown.commands.*;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class InactiveShutdown extends JavaPlugin {
@@ -43,7 +40,8 @@ public class InactiveShutdown extends JavaPlugin {
 
         commandTree
             .add("inactiveshutdown disable")
-            .setPermission("inactiveshutdown.command.disable");
+            .setPermission("inactiveshutdown.command.disable")
+            .setExecutor(new DisableCommand(this));
 
         commandTree
             .add("inactiveshutdown delay")
