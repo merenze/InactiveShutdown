@@ -9,7 +9,7 @@ import java.util.Map;
 public class BaseCommand implements CommandExecutor {
     public static final String NAME = "inactiveshutdown";
 
-    private JavaPlugin plugin;
+    private final JavaPlugin plugin;
 
     public BaseCommand(JavaPlugin plugin) {
         this.plugin = plugin;

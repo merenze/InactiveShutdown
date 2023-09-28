@@ -1,17 +1,9 @@
-# Options for stopping the server after the last player leaves.
-# This timer will start when the last player logs out, and will be cancelled if another player joins.
-after-player-leave:
-  # Whether to stop the server when there are no players.
-  enabled: false
-  # Time (in seconds) to wait before stopping the server.
-  delay: 300
-# Options for stopping the server if there is no activity after startup
-# This timer will start when the server starts, and will be cancelled if a player joins or a console command is used.
-after-startup:
-  # Whether to stop the server if no player logs in after startup and no console command is used.
-  enabled: false
-  # Time (in seconds) to wait before stopping the server.
-  delay: 300
+# If true, stops the server after a period of inactivity.
+enabled: false
+# Time after last activity to stop the server.
+delay: 3600
+# Whether the inactivity timer should begin at startup, or wait for players to join first.
+from-startup: false
 # System scripts to run before stopping the server due to inactivity.
 # These will run only if the server is stopped by this plugin.
 scripts: []
