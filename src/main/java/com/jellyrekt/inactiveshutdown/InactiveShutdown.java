@@ -12,7 +12,7 @@ public class InactiveShutdown extends JavaPlugin {
 
     }
 
-    private CommandTree registerCommands() {
+    private void registerCommands() {
         CommandTree commandTree = new CommandTree(this)
             .setPermissionDeniedMessage("Unknown command. Type \"/help\" for help.");
 
@@ -50,11 +50,10 @@ public class InactiveShutdown extends JavaPlugin {
 
         commandTree
             .add("inactiveshutdown reloadconfig")
-            .setPermission("inactiveshutdown.command.reloadconfig");
+            .setPermission("inactiveshutdown.command.reloadconfig")
+            .setExecutor(new ReloadConfigCommand(this));
 
         commandTree.register();
-
-        return commandTree;
     }
 
     /**
