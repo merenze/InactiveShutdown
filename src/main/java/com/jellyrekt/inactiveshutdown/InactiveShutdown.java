@@ -34,18 +34,19 @@ public class InactiveShutdown extends JavaPlugin {
             .setExecutor(new StatusCommand(this));
 
         commandTree
-            .add("inactiveshutdown enable")
+            .add(EnableCommand.NAME)
             .setPermission("inactiveshutdown.command.enable")
             .setExecutor(new EnableCommand(this));
 
         commandTree
-            .add("inactiveshutdown disable")
+            .add(DisableCommand.NAME)
             .setPermission("inactiveshutdown.command.disable")
             .setExecutor(new DisableCommand(this));
 
         commandTree
-            .add("inactiveshutdown delay")
-            .setPermission("inactiveshutdown.command.delay");
+            .add(DelayCommand.NAME)
+            .setPermission("inactiveshutdown.command.delay")
+            .setExecutor(new DelayCommand(this));
 
         commandTree
             .add("inactiveshutdown reloadconfig")
@@ -57,14 +58,14 @@ public class InactiveShutdown extends JavaPlugin {
     }
 
     /**
-     * Format a time (e.g., "1h 1m 1s").
+     * Format the shutdown delay (e.g., "1h 1m 1s").
      * Hours will be displayed only if greater than 0.
      * Minutes will be displayed if greater than 0 or hours is displayed.
      *
-     * @param s Time in seconds
      * @return Time formatted as 1h 1m 1s, where h, m, and s display on
      */
-    public static String formatTime(int s) {
+    public String formatDelay() {
+        int s = getConfig().getInt("delay");
         StringBuilder builder = new StringBuilder();
         if (s > 3600) {
             builder.append(s / 3600).append("h ");

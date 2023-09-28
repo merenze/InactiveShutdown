@@ -8,7 +8,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.util.Map;
 
 public class DisableCommand implements CommandExecutor {
-    public static final String NAME = BaseCommand.NAME + " enable";
+    public static final String NAME = BaseCommand.NAME + " disable";
 
     private final JavaPlugin plugin;
 

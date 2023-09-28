@@ -11,9 +11,9 @@ import java.util.Map;
 public class StatusCommand implements CommandExecutor {
     public static final String NAME = BaseCommand.NAME + " status";
 
-    private final JavaPlugin plugin;
+    private final InactiveShutdown plugin;
 
-    public StatusCommand(JavaPlugin plugin) {
+    public StatusCommand(InactiveShutdown plugin) {
         this.plugin = plugin;
     }
 
@@ -24,7 +24,7 @@ public class StatusCommand implements CommandExecutor {
         sender.sendMessage(
                 "== InactiveShutdown Status ==",
                 "Enabled: " + (config.getBoolean("enabled") ? "enabled" : "disabled"),
-                "Delay: " + InactiveShutdown.formatTime(config.getInt("delay"))
+                "Delay: " + plugin.formatDelay()
         );
     }
 }
