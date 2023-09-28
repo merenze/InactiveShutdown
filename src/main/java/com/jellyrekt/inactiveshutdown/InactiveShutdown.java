@@ -1,7 +1,8 @@
 package com.jellyrekt.inactiveshutdown;
 
 import com.jellyrekt.commandtree.CommandTree;
-import com.jellyrekt.inactiveshutdown.commands.InactiveShutdownCommand;
+import com.jellyrekt.inactiveshutdown.commands.BaseCommand;
+import com.jellyrekt.inactiveshutdown.commands.HelpCommand;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class InactiveShutdown extends JavaPlugin {
@@ -16,10 +17,16 @@ public class InactiveShutdown extends JavaPlugin {
         CommandTree commandTree = new CommandTree(this)
             .setPermissionDeniedMessage("Unknown command. Type \"/help\" for help.");
 
-        commandTree.add("inactiveshutdown")
+        commandTree.add(BaseCommand.NAME)
             .addAliases("insh")
             .setPermission("inactiveshutdown.command.base")
-            .setExecutor(new InactiveShutdownCommand());
+            .setExecutor(new BaseCommand(this));
+
+        commandTree
+            .add(HelpCommand.NAME)
+            .addAliases("?")
+            .setPermission("inactiveshutdown.command.help")
+            .setExecutor(new HelpCommand());
 
         commandTree.add("inactiveshutdown reloadconfig")
             .setPermission("inactiveshutdown.command.reloadconfig");
