@@ -7,7 +7,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.util.Map;
 
 public class ReloadConfigCommand implements CommandExecutor {
-    private static final String NAME = BaseCommand.NAME + " reloadconfig";
+    public static final String NAME = BaseCommand.NAME + " reloadconfig";
     private final JavaPlugin plugin;
 
     public ReloadConfigCommand(JavaPlugin plugin) {

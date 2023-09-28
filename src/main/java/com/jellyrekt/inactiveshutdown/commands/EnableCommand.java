@@ -10,9 +10,9 @@ import java.util.Map;
 public class EnableCommand implements CommandExecutor {
     public static final String NAME = BaseCommand.NAME + " enable";
 
-    private final JavaPlugin plugin;
+    private final InactiveShutdown plugin;
 
-    public EnableCommand(JavaPlugin plugin) {
+    public EnableCommand(InactiveShutdown plugin) {
         this.plugin = plugin;
     }
 
@@ -22,6 +22,6 @@ public class EnableCommand implements CommandExecutor {
             plugin.getConfig().set("enabled", true);
             plugin.saveConfig();
         }
-        sender.sendMessage(String.format("Server will time out after %s inactivity.", InactiveShutdown.formatTime(plugin.getConfig().getInt("delay"))));
+        sender.sendMessage(String.format("Server will time out after %s inactivity.", plugin.formatDelay()));
     }
 }

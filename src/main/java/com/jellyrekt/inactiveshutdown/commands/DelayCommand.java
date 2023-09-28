@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class DelayCommand implements CommandExecutor {
     public static final String NAME = BaseCommand.NAME + " delay";
-    public static final String HELP_MSG = NAME + " <seconds> - Set the shutdown delay";
+    public static final String HELP_MSG = "/" + NAME + " <seconds> - Set the shutdown delay";
 
     private final InactiveShutdown plugin;
 
@@ -28,7 +28,7 @@ public class DelayCommand implements CommandExecutor {
         try {
             config.set("delay", Integer.parseInt(map.get("delay")[0]));
         } catch (NumberFormatException ex) {
-            sender.sendMessage(HELP_MSG);
+            sender.sendMessage("Usage: " + HELP_MSG);
             return;
         }
 
