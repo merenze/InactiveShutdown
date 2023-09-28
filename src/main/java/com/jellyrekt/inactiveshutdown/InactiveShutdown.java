@@ -1,13 +1,15 @@
 package com.jellyrekt.inactiveshutdown;
 
 import com.jellyrekt.commandtree.CommandTree;
+import com.jellyrekt.inactiveshutdown.commands.InactiveShutdownCommand;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class InactiveShutdown extends JavaPlugin {
     @Override
     public void onEnable() {
         getLogger().info("Hello, World!");
-        getLogger().info(registerCommands().toString());
+        registerCommands();
+
     }
 
     private CommandTree registerCommands() {
@@ -16,7 +18,8 @@ public class InactiveShutdown extends JavaPlugin {
 
         commandTree.add("inactiveshutdown")
             .addAliases("insh")
-            .setPermission("inactiveshutdown.command.base");
+            .setPermission("inactiveshutdown.command.base")
+            .setExecutor(new InactiveShutdownCommand());
 
         commandTree.add("inactiveshutdown reloadconfig")
             .setPermission("inactiveshutdown.command.reloadconfig");

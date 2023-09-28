@@ -5,3 +5,8 @@ description: Automatically shut down your server after a specified period of ina
 author: JellyRekt
 website: https://github.com/merenze/InactiveShutdown
 api-version: '1.20'
+commands:
+  inactiveshutdown:
+    usage: "/inactiveshutdown [args]"
+    description: ""
+    aliases: [ "insh" ]
