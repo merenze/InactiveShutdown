@@ -1,23 +1,23 @@
 package com.jellyrekt.inactiveshutdown.events;
 
-import com.google.gson.JsonSerializationContext;
+import com.destroystokyo.paper.event.player.PlayerConnectionCloseEvent;
+import com.jellyrekt.inactiveshutdown.InactiveShutdown;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.server.ServerCommandEvent;
-import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class ActivityListener implements Listener {
-    private final JavaPlugin plugin;
-    Timer timer = new Timer();
+    private final InactiveShutdown plugin;
+    Timer timer = null;
     TimerTask doShutdown = new TimerTask() {
         @Override
         public void run() {
+            plugin.getLogger().info("Stopping server.");
             // Run pre-shutdown scripts
             for (String script : plugin.getConfig().getStringList("scripts")) {
                 try {
@@ -33,12 +33,12 @@ public class ActivityListener implements Listener {
         }
     };
 
-    public ActivityListener(JavaPlugin plugin) {
+    public ActivityListener(InactiveShutdown plugin) {
         this.plugin = plugin;
     }
 
     @EventHandler
-    public void onPlayerLeave(PlayerQuitEvent e) {
+    public void onPlayerLeave(PlayerConnectionCloseEvent e) {
         if (!doSetTimer()) {
             return;
         }
@@ -54,7 +54,12 @@ public class ActivityListener implements Listener {
     }
 
     private void setTimer() {
-        timer.schedule(doShutdown, plugin.getConfig().getInt("delay"));
+        plugin.getLogger().info("Scheduling shutdown in " + plugin.formatDelay());
+        if (timer != null) {
+            timer.cancel();
+        }
+        timer = new Timer();
+        timer.schedule(doShutdown, 1000L * plugin.getConfig().getLong("delay"));
     }
 
     private boolean doSetTimer() {
@@ -62,6 +67,7 @@ public class ActivityListener implements Listener {
         if (!config.getBoolean("enabled")) {
             return false;
         }
+        plugin.getLogger().info("" + plugin.getServer().getOnlinePlayers().size() + " players still online.");
         if (plugin.getServer().getOnlinePlayers().size() != 0) {
             return false;
         }

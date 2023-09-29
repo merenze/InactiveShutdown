@@ -8,53 +8,58 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class InactiveShutdown extends JavaPlugin {
     @Override
     public void onEnable() {
-        getLogger().info("Hello, World!");
         registerCommands();
+        saveDefaultConfig();
         getServer().getPluginManager().registerEvents(new ActivityListener(this), this);
     }
 
     private void registerCommands() {
-        CommandTree commandTree = new CommandTree(this)
+        CommandTree tree = new CommandTree(this)
             .setPermissionDeniedMessage("Unknown command. Type \"/help\" for help.");
 
-        commandTree.add(BaseCommand.NAME)
+        tree
+            .add(BaseCommand.NAME)
             .addAliases("insh")
             .setPermission("inactiveshutdown.command.base")
             .setExecutor(new BaseCommand(this));
 
-        commandTree
+        tree
             .add(HelpCommand.NAME)
             .addAliases("?")
             .setPermission("inactiveshutdown.command.help")
             .setExecutor(new HelpCommand());
 
-        commandTree
+        tree
             .add(StatusCommand.NAME)
             .addAliases("s")
             .setPermission("inactiveshutdown.command.status")
             .setExecutor(new StatusCommand(this));
 
-        commandTree
+        tree
             .add(EnableCommand.NAME)
+            .addAliases("on")
             .setPermission("inactiveshutdown.command.enable")
             .setExecutor(new EnableCommand(this));
 
-        commandTree
+        tree
             .add(DisableCommand.NAME)
+            .addAliases("off")
             .setPermission("inactiveshutdown.command.disable")
             .setExecutor(new DisableCommand(this));
 
-        commandTree
+        tree
             .add(DelayCommand.NAME)
+            .addAliases("time", "t")
             .setPermission("inactiveshutdown.command.delay")
             .setExecutor(new DelayCommand(this));
 
-        commandTree
-            .add("inactiveshutdown reloadconfig")
+        tree
+            .add(ReloadConfigCommand.NAME)
+            .addAliases("reload", "rc", "r")
             .setPermission("inactiveshutdown.command.reloadconfig")
             .setExecutor(new ReloadConfigCommand(this));
 
-        commandTree.register();
+        tree.register();
     }
 
     /**

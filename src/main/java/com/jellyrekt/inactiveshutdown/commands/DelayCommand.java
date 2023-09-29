@@ -27,6 +27,7 @@ public class DelayCommand implements CommandExecutor {
         FileConfiguration config = plugin.getConfig();
         try {
             config.set("delay", Integer.parseInt(map.get("delay")[0]));
+            plugin.saveConfig();
         } catch (NumberFormatException ex) {
             sender.sendMessage("Usage: " + HELP_MSG);
             return;
